@@ -10,6 +10,8 @@ if "%~1" neq "" (
     set "dir=."
 )
 
+echo test
+
 @echo on
 
 labelme %dir% --labels .labelme/labels.txt --labelflags .labelme/labelflags.json --nodata --autosave --validatelabel exact
