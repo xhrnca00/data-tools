@@ -1,6 +1,9 @@
 @echo off
 SETLOCAL
 
+:: get latest version
+git fetch && git pull
+
 if "%~1" neq "" (
     set "dir=%~1"
 ) else (
