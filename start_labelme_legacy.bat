@@ -7,7 +7,7 @@ git fetch && git pull
 if "%~1" neq "" (
     set "dir=%~1"
 ) else (
-    set "dir=!*"
+    set "dir=."
 )
 
 @echo on
