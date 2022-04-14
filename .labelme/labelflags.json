@@ -1,4 +1,12 @@
 {
-    "vehicle": ["car", "van", "lighttruck", "truck", "bus", "industrial"],
+    "vehicle": [
+        "car",
+        "van",
+        "lighttruck",
+        "truck",
+        "motorbike",
+        "bus",
+        "industrial"
+    ],
     "color": ["white", "gray", "black", "red", "blue", "green", "yellow"]
 }

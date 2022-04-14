@@ -10,5 +10,6 @@ car
 van
 lighttruck
 truck
+motorbike
 bus
 industrial
