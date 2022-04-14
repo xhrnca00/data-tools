@@ -1,0 +1,4 @@
+{
+    "vehicle": ["car", "van", "lighttruck", "truck", "bus", "industrial"],
+    "color": ["white", "gray", "black", "red", "blue", "green", "yellow"]
+}

@@ -1,0 +1,10 @@
+# ignore all other files
+# to add files, add !<filename> below
+*
+
+# do not ignore these files
+!.gitignore
+!*labelme*
+!.labelme/**
+!README.md
+!export.py

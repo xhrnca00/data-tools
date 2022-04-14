@@ -1,0 +1,14 @@
+white
+gray
+black
+red
+blue
+green
+yellow
+
+car
+van
+lighttruck
+truck
+bus
+industrial
