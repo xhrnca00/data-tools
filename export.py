@@ -56,12 +56,7 @@ class Finder:
         if data_extension is None:
             data_extension = self.data_extension
         unsearched_dirs: Queue[str] = Queue()
-        # * we do not want to search root dir for input files
-        # put ./<dir> in
-        for item in os.scandir(self.search_root):
-            if self._is_data_dir(item):
-                unsearched_dirs.put(item.path)
-
+        unsearched_dirs.put(self.search_root)
         while not unsearched_dirs.empty():
             _dir = unsearched_dirs.get()  # dir shadows a builtin
             for item in os.scandir(_dir):
