@@ -12,4 +12,4 @@ if "%~1" neq "" (
 
 @echo on
 
-labelme %dir% --labels .labelme/flags.txt --nodata --autosave --validatelabel exact
+labelme %dir% --labels _labelme/flags.txt --nodata --autosave --validatelabel exact

@@ -5,6 +5,10 @@
 # do not ignore these files
 !.gitignore
 !*labelme*
-!.labelme/**
+!_labelme/**
+!_export
+!_export/**/*.py
 !README.md
-!export.py
+
+# override any cancels
+__pycache__
