@@ -239,7 +239,7 @@ class YoloConverter(Converter):
         to_eval = 100 / self.eval_percent
         # offset counter to alter run results
         counter: float = randrange(0, int(to_eval))
-        for path in self.finder.find_all("txt"):
+        for path in self.finder.find_all("jpg"):
             write_path = os.path.abspath(
                 path) if self.absolute_paths else get_relpath(self.exec_path, path)
             if counter < to_eval:
@@ -369,9 +369,6 @@ def parse_args():
         "-o", "--output", default=DEFAULT_OUTPUT_PATH, metavar="PATH",
         help="Directory to output config files")
     parser.add_argument(
-        "-b", "--backup", default=DEFAULT_BACKUP_PATH, metavar="PATH",
-        help="YOLO-only: Directory to store training weights")
-    parser.add_argument(
         "-i", "--input", default=DEFAULT_INPUT_PATH, metavar="PATH",
         help="Directory with input files")
     parser.add_argument(
@@ -380,6 +377,9 @@ def parse_args():
     parser.add_argument(
         "-p", "--prefix", default=DEFAULT_DATA_PREFIX,
         help="Prefix to folders with data")
+    parser.add_argument(
+        "-b", "--backup", default=DEFAULT_BACKUP_PATH, metavar="PATH",
+        help="YOLO-only: Directory to store training weights")
     parser.add_argument(
         "--data-extension", default=DEFAULT_DATA_EXTENSION, metavar="EXTENSION",
         help="Data files extension")
