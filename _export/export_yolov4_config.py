@@ -1493,7 +1493,7 @@ if __name__ == "__main__":
                                args.subdivisons, args.height, args.width)
     if args.format == "yolo-tiny":
         file = get_yolo_tiny_config(args.classes, args.batches,
-                                    args.subdivisons, args.height, args.width)
+                                    args.subdivisions, args.height, args.width)
     if file:
         with open(args.path, "w") as f:
             f.write(file)
