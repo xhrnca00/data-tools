@@ -274,6 +274,8 @@ class AttributesConverter(Converter):
         if len(shapes) > 2:
             raise ValueError(
                 "More than one vehicle per file is currently unsupported")
+        if len(shapes) < 2:
+            raise ValueError("Not enough objects in annotation file")
         for shape in shapes:
             if shape["label"] == "vehicle":
                 veh_type = self._type_from_flags(shape, self.vehicle_types)
