@@ -1490,7 +1490,7 @@ if __name__ == "__main__":
     args = parse_args()
     if args.format == "yolo":
         file = get_yolo_config(args.classes, args.batches,
-                               args.subdivisons, args.height, args.width)
+                               args.subdivisions, args.height, args.width)
     if args.format == "yolo-tiny":
         file = get_yolo_tiny_config(args.classes, args.batches,
                                     args.subdivisions, args.height, args.width)
