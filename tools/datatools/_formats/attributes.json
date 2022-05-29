@@ -1,0 +1,20 @@
+[
+    {
+        "image_size": ["X", "Y"],
+        "objects": [
+            {
+                "label": "vehicle",
+                "is_occluded": false,
+                "attributes": {
+                    "type": "car|bus|van|truck",
+                    "color_bbox": [["xmin", "ymin", "xmax", "ymax"]],
+                    "view": "front",
+                    "color": "7 colors"
+                },
+                "bbox": ["xmin", "ymin", "xmax", "ymax"]
+            }
+        ],
+        "dataset": "cars_100",
+        "image": "relative/path/from/train/to/image"
+    }
+]

@@ -1,0 +1,8 @@
+# override top level * ignore
+!*
+
+# ignore these files
+__pycache__
+
+test_*
+last_*_args.txt

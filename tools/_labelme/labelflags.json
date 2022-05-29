@@ -8,5 +8,5 @@
         "bus",
         "industrial"
     ],
-    "color": ["white", "gray", "black", "red", "blue", "green", "yellow"]
+    "color": []
 }

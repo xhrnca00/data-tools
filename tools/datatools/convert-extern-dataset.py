@@ -9,7 +9,7 @@ EXTERN_CLASSES = {
     4: "n_motorbike",
     5: "n_car",
     6: "n_bus",
-    7: "n_truck"
+    7: "n_truck",
 }
 OUTPUT_CLASSES = {
     0: "car",
@@ -18,7 +18,7 @@ OUTPUT_CLASSES = {
     3: "truck",
     4: "motorbike",
     5: "bus",
-    6: "industrial"
+    6: "industrial",
 }
 
 CONVERT_CLASSES: Dict[int, int] = {
@@ -32,7 +32,7 @@ CONVERT_CLASSES: Dict[int, int] = {
     7: 3,
 }
 
-PATTERN = "./extern-*/**/*.txt"
+PATTERN = "../../data/extern-*/**/*.txt"
 LOGGING_INDEX = 20
 
 
@@ -55,7 +55,8 @@ def main():
 
 if __name__ == "__main__":
     response = input(
-        f"This file will overwrite all .txt files matching the pattern '{PATTERN}'\n" +
-        "Are you sure you want to continue? (Y/n): ").lower()
+        f"This file will overwrite all .txt files matching the pattern '{PATTERN}'\n"
+        + "Are you sure you want to continue? (Y/n): "
+    ).lower()
     if response == "y":
         main()

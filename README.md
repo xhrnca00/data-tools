@@ -1,28 +1,46 @@
-# Labelme config
+# Data tools
 
 ## Introduction
 
-This repository contains configuration and exporting files for labelme (exporting labelme data to other formats).
+This repository contains data tools for exporting from labelme format to a different one. There are also some tools for the dataset in general (sorting based on view, validating annotations).
 
-**So far, only Windows is supported for starting labelme.**
+All python scripts were tested with Python 3.7.10.
+
+**As of now, only Windows is supported for starting labelme.**
 
 ## How to install
 
-Simply clone this repository. When starting labelme using the batch files, all the files will update to the latest commit.
+Simply clone this repository. Use `update.bat` in the `tools` directory to update to the latest commit.
+
+## Repository structure
+
+- The `data` directory is for your dataset.
+- The `anno_data` directory is for your annotation files.
+- **All scripts are in the `tools` directory.**
+  - `start_labelme.bat` [starts labelme](##Running-labelme) (annotation program).
+  - `update.bat` fetches and pulls the repository (updates to the latest version).
+  - `export.py` [exports](##Export) data set annotations to another formats.
+  - `validate.py` [validates](##Validate) annotations.
+  - `datatools` python module contains internal python code.
+  - `_labelme` directory contains config for labelme.
 
 ## Running labelme
 
-Double click the `start_labelme.bat` or use the command line:
+You need to have labelme for annotation:
 
 ```powershell
-./start_labelme.bat <optional: specify a picture directory>
+pip install labelme
 ```
 
-## Deprecated
+Double click `start_labelme.bat` or use the command line:
 
-`start_labelme_legacy.bat` is deprecated and exports files in a different format. `export.py` can still parse it, but it is turned off by default.
+```powershell
+start_labelme.bat <optional: specify a picture directory>
+```
 
-## Export files
+The default directory is `anno_data` in the root directory. It is not recommended to change this default.
+
+## Export
 
 Currently, `export.py` supports exporting to [YOLOv4](https://github.com/AlexeyAB/Yolo_mark/issues/60#issuecomment-401854885) and [vehicle attributes](https://github.com/openvinotoolkit/training_extensions/tree/misc/misc/tensorflow_toolkit/vehicle_attributes) formats.
 
@@ -34,8 +52,28 @@ Write into the terminal:
 python export.py -h
 ```
 
-(you might have to change `python` to `python3` if you are not on Windows). That will show you all the possible commands.
+(you might have to change `python` to `python3` if you are not on Windows).
 
-Point `export.py` at your data directory and make sure all folders with data are prefixed with an exclamation mark (❗) (can be changed). You can also just doubleclick (will use this directory).
+That will show you all the possible formats. For help on export arguments, use the `-h` or `--help` flags after a format:
 
-Default export format is YOLO.
+```powershell
+python export.py <format> --help
+```
+
+Default data directory is `.\data`. To include data directory in export, prefix it with an ❗. Use the `--help` flag for information for all arguments.
+
+## Validate
+
+not done yet 😔
+<!-- TODO: write documentation after validate script is finished -->
+
+## Saving past commands
+
+If you specify the `-S` flag right after a script, your arguments will be saved into a `last_<script>_args.txt` file.
+For example:
+
+```powershell
+python export.py -S yolo --exec="..\..\darknet\darknet.exe"
+```
+
+After that, if you run the script without arguments, it will use the ones in the `.txt` file.

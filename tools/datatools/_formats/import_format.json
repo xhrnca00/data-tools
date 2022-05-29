@@ -1,0 +1,21 @@
+{
+    "shapes": [
+        {
+            "label": "vehicle",
+            "points": [
+                ["Xmin", "Ymin"],
+                ["Xmax", "Ymax"]
+            ]
+        },
+        {
+            "label": "color",
+            "points": [
+                ["Xmin", "Ymin"],
+                ["Xmax", "Ymax"]
+            ]
+        }
+    ],
+    "imagePath": "rel/path/from/this/to/jpg.jpg",
+    "imageHeight": "Y",
+    "imageWidth": "X"
+}

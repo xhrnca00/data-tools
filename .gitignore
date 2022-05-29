@@ -1,14 +1,12 @@
 # ignore all other files
-# to add files, add !<filename> below
 *
 
 # do not ignore these files
 !.gitignore
-!*labelme*
-!_labelme/**
-!_export
-!_export/**/*.py
 !README.md
 
-# override any cancels
-__pycache__
+# do not ignore these folders
+!data
+!anno_data
+!tools
+!config

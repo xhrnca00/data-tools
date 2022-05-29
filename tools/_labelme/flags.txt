@@ -1,11 +1,3 @@
-white
-gray
-black
-red
-blue
-green
-yellow
-
 car
 van
 lighttruck
