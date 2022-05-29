@@ -4,6 +4,7 @@ import os
 from json import dumps, load
 from pathlib import Path
 from random import shuffle
+from time import time
 from typing import Any, Dict, List, Tuple
 
 from .. import defaults
@@ -118,14 +119,6 @@ class AttributesConverter(Converter):
             },
             "bbox": obj_bbox
         } for veh_type, obj_bbox, color_bbox in objects]
-        # veh_type, obj_bbox, color_bbox = self._parse_shapes(old["shapes"])
-        # new["objects"] = [{
-        #     "attributes": {
-        #         "type": veh_type,
-        #         "color_bbox": [color_bbox],
-        #     },
-        #     "bbox": obj_bbox
-        # }]
         path_to_img = os.path.join(Path(path).parent, old["imagePath"])
         new["image"] = os.path.abspath(path_to_img) if self.absolute_paths \
             else get_relpath(self.exec_path, path_to_img)
@@ -133,12 +126,17 @@ class AttributesConverter(Converter):
 
     def convert(self) -> None:
         self._handle_files_exist([self.train_path, self.eval_path])
+        start = time()
+        read_files = 0
+        converted_files = 0
         # * convert loop
         for path in self.finder.find_all():
             try:
                 self.vehicles.append(self.convert_file(path))
+                converted_files += 1
             except ValueError as e:
                 logger.warning(f"Bad format, skipping {path} ({e})")
+            read_files += 1
         # * write files
         shuffle(self.vehicles)
         if self.dedic_eval_path is None:
@@ -163,6 +161,8 @@ class AttributesConverter(Converter):
             shuffle(eval_vehicles)
             with open(self.eval_path, "w") as eval_file:
                 eval_file.write(dumps(eval_vehicles, separators=(",", ":")))
+        logger.success(
+            f"Converted {converted_files} files ({read_files} read) in {round_to_digits(time() - start, 6)} s")
 
     @classmethod
     def add_parser_arguments(cls, parser: argparse.ArgumentParser):

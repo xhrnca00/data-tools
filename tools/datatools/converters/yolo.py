@@ -4,12 +4,13 @@ import os
 from json import load
 from pathlib import Path
 from random import shuffle
+from time import time
 from typing import Any, Dict, List, Tuple, Union
 
 from .. import defaults
 from ..finder import Finder
 from ..logger import get_logger
-from ..util import get_relpath
+from ..util import get_relpath, round_to_digits
 from .base_converter import Converter, ConverterArgs
 from .export_yolov4_config import get_yolo_config
 
@@ -112,12 +113,17 @@ class YoloConverter(Converter):
     def convert(self) -> None:
         self._handle_files_exist([self.data_path, self.config_path,
                                   self.train_path, self.eval_path])
+        start = time()
+        converted_files = 0
+        read_files = 0
         # * convert loop
         for path in self.finder.find_all():
             try:
                 self.convert_file(path)
+                converted_files += 1
             except ValueError as e:
                 logger.warning(f"Bad format, skipping {path} ({e})")
+            read_files += 1
         # * write config files
         # * obj.data
         with open(self.data_path, "w") as data_file:
@@ -159,6 +165,8 @@ class YoloConverter(Converter):
             shuffle(eval_images)
             with open(self.eval_path, "w") as eval_file:
                 eval_file.write("\n".join(eval_images))
+        logger.success(
+            f"Converted {converted_files} files ({read_files} read) in {round_to_digits(time() - start, 6)} s")
 
     @classmethod
     def add_parser_arguments(cls, parser: argparse.ArgumentParser):

@@ -53,9 +53,7 @@ def main():
     logger.info("converting...")
     start = time()
     converter.convert()
-    end = time()
-    logger.debug(f"Took {end - start} s")
-    logger.success("done")
+    logger.debug(f"Took {time() - start} s")
 
 
 if __name__ == "__main__":

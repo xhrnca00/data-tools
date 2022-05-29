@@ -3,7 +3,7 @@ import logging as _logging
 from .util import base_off_cwd as _base_off_cwd
 
 # default logger level
-LOG_LEVEL = _logging.DEBUG
+LOG_LEVEL = _logging.INFO
 
 # check unused parameters in annotation files
 CHECK_UNUSED_PARAMS = True
