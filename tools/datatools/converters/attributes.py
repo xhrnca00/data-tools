@@ -52,9 +52,6 @@ class AttributesConverter(Converter):
         # parameters that might be needed in files but we are not changing
         #! these could be changed, but probably won't
         self.label: str = "vehicle"
-        self.is_occluded: bool = False
-        self.view: str = "front"
-        self.dataset: str = "cars"
 
     def _parse_shapes(self, shapes: List[Dict[str, Any]]) -> List[Tuple[str, Bbox, Bbox]]:
         vehicles, colors = self._sort_labels(shapes)
@@ -113,6 +110,7 @@ class AttributesConverter(Converter):
         new: Dict[str, Any] = {}
         objects = self._parse_shapes(old["shapes"])
         new["objects"] = [{
+            "label": self.label,
             "attributes": {
                 "type": veh_type,
                 "color_bbox": [color_bbox],
