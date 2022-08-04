@@ -14,7 +14,8 @@ class Finder:
         return item.is_dir() and item.name.startswith(data_prefix)
 
     def _is_data_file(self, item: os.DirEntry, extension) -> bool:
-        return item.is_file() and item.name.endswith(f".{extension}")
+        return item.is_file() and \
+            (item.name.endswith(f".{extension}") or extension == "")
 
     def find_all(self, data_extension=None, data_prefix=None, search_root=None) -> Generator[str, None, None]:
         if data_extension is None:

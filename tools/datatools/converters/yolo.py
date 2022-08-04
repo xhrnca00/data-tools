@@ -10,7 +10,7 @@ from typing import Any, Dict, List, Tuple, Union
 from .. import defaults
 from ..finder import Finder
 from ..logger import get_logger
-from ..util import get_relpath, round_to_digits
+from ..util import round_to_digits
 from .base_converter import Converter, ConverterArgs
 from .export_yolov4_config import get_yolo_config
 
@@ -30,11 +30,11 @@ class YoloConverter(Converter):
         super().__init__(Finder(args.input, args.prefix, args.data_extension), args)
 
         # output files
-        self.config_path = f"{self.output_path}/yolov4.cfg"
-        self.data_path = f"{self.output_path}/obj.data"
-        self.train_path = f"{self.output_path}/train.txt"
-        self.eval_path = f"{self.output_path}/test.txt"
-        self.names_path = f"{self.output_path}/names.txt"
+        self.config_path = f"{self.output_path}{os.path.sep}yolov4.cfg"
+        self.data_path = f"{self.output_path}{os.path.sep}obj.data"
+        self.train_path = f"{self.output_path}{os.path.sep}train.txt"
+        self.eval_path = f"{self.output_path}{os.path.sep}test.txt"
+        self.names_path = f"{self.output_path}{os.path.sep}names.txt"
         self.backup_path = args.backup
 
         # object classes
@@ -67,9 +67,6 @@ class YoloConverter(Converter):
                 return False
         del old
         return True
-
-    def _get_data_path(self, path):
-        return os.path.abspath(path) if self.absolute_paths else get_relpath(self.exec_path, path)
 
     def _get_vehicle_class(self, shape: Dict[str, Any]) -> Union[int, None]:
         if (shape["label"] == "vehicle"):
@@ -148,8 +145,7 @@ class YoloConverter(Converter):
         if self.dedic_eval_path is None:
             # split images randomly
             for path in images:
-                path = os.path.abspath(path) if self.absolute_paths \
-                    else get_relpath(self.exec_path, path)
+                path = self._get_data_path(path)
             split_num = int(len(images) * self.eval_percent / 100)
             with open(self.train_path, "w") as train_file:
                 train_file.write("\n".join(images[split_num:]))
@@ -179,7 +175,7 @@ class YoloConverter(Converter):
             description="It is not recommended to mess with these,\
                 unless your GPU is running out of memory\
                 or the learning process is crashing")
-        network_group.add_argument("--batch-size", metavar="SIZE", type=int, default=defaults.YOLO_BATCH_SIZE,
+        network_group.add_argument("--batch_size", metavar="SIZE", type=int, default=defaults.YOLO_BATCH_SIZE,
                                    help="How many images are in a batch")
         network_group.add_argument("--subdivisions", type=int, default=defaults.YOLO_SUBDIVISIONS,
                                    help="To how many subidivisions is a batch split to\

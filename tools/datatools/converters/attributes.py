@@ -10,7 +10,7 @@ from typing import Any, Dict, List, Tuple
 from .. import defaults
 from ..finder import Finder
 from ..logger import get_logger
-from ..util import get_relpath, round_to_digits
+from ..util import round_to_digits
 from .base_converter import Converter, ConverterArgs
 
 logger = get_logger()
@@ -25,7 +25,7 @@ Vehicle = Tuple[str, Bbox]
 
 
 class AttributesArgs(ConverterArgs):
-    multiple: bool
+    no_multiple: bool
 
 
 def _is_point_in_rect(point: Point, rect: Bbox) -> bool:
@@ -40,11 +40,11 @@ def _is_point_in_rect(point: Point, rect: Bbox) -> bool:
 class AttributesConverter(Converter):
     def __init__(self, args: AttributesArgs):
         super().__init__(Finder(args.input, args.prefix, args.data_extension), args)
-        self.allow_multiple = args.multiple
+        self.allow_multiple = args.no_multiple
 
         # output paths
-        self.train_path = f"{self.output_path}/train.json"
-        self.eval_path = f"{self.output_path}/test.json"
+        self.train_path = f"{self.output_path}{os.path.sep}train.json"
+        self.eval_path = f"{self.output_path}{os.path.sep}test.json"
 
         # list of vehicles to put to final files
         self.vehicles: List[Dict[str, Any]] = []
@@ -118,8 +118,7 @@ class AttributesConverter(Converter):
             "bbox": obj_bbox
         } for veh_type, obj_bbox, color_bbox in objects]
         path_to_img = os.path.join(Path(path).parent, old["imagePath"])
-        new["image"] = os.path.abspath(path_to_img) if self.absolute_paths \
-            else get_relpath(self.exec_path, path_to_img)
+        new["image"] = self._get_data_path(path_to_img)
         return new
 
     def convert(self) -> None:
@@ -165,6 +164,6 @@ class AttributesConverter(Converter):
     @classmethod
     def add_parser_arguments(cls, parser: argparse.ArgumentParser):
         super().add_parser_arguments(parser)
-        parser.add_argument("--multiple", action="store_const",
-                            const=not defaults.ATTR_MULTIPLE, default=defaults.ATTR_MULTIPLE,
+        parser.add_argument("--no_multiple", action="store_const",
+                            const=False, default=defaults.ATTR_MULTIPLE,
                             help="Whether to skip files with multiple vehicles")

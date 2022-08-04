@@ -14,6 +14,7 @@ Simply clone this repository. Use `update.bat` in the `tools` directory to updat
 
 ## Repository structure
 
+<!-- FIXME: links to heading do not work on GitHub -->
 - The `data` directory is for your dataset.
 - The `anno_data` directory is for your annotation files.
 - **All scripts are in the `tools` directory.**
@@ -39,6 +40,17 @@ start_labelme.bat <optional: specify a picture directory>
 ```
 
 The default directory is `anno_data` in the root directory. It is not recommended to change this default.
+
+## Saving past commands
+
+If you specify the `-S` flag right after a script, your arguments will be saved into a `last_<script>_args.txt` file.
+For example:
+
+```powershell
+python export.py -S yolo --exec="..\..\darknet\darknet.exe"
+```
+
+After that, if you run the script without arguments, it will use the ones in the `.txt` file.
 
 ## Export
 
@@ -67,13 +79,7 @@ Default data directory is `.\data`. To include data directory in export, prefix 
 not done yet 😔
 <!-- TODO: write documentation after validate script is finished -->
 
-## Saving past commands
+## Organize
 
-If you specify the `-S` flag right after a script, your arguments will be saved into a `last_<script>_args.txt` file.
-For example:
-
-```powershell
-python export.py -S yolo --exec="..\..\darknet\darknet.exe"
-```
-
-After that, if you run the script without arguments, it will use the ones in the `.txt` file.
+Work in progress.
+<!-- TODO: write documentation after organize.py is finished -->

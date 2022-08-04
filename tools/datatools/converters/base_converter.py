@@ -3,12 +3,12 @@ import os
 
 from abc import ABCMeta, abstractmethod
 from json import load
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from .. import defaults
 from ..finder import Finder
 from ..logger import get_logger
-from ..util import base_off_cwd
+from ..util import base_off_cwd, get_relpath
 
 logger = get_logger()
 
@@ -22,7 +22,7 @@ class ConverterArgs(argparse.Namespace):
     absolute: bool
     force: bool
     val: int
-    dedicated: str
+    dedicated: Optional[str]
 
 
 class Converter(metaclass=ABCMeta):
@@ -92,6 +92,9 @@ class Converter(metaclass=ABCMeta):
         except KeyError:
             return False
 
+    def _get_data_path(self, path):
+        return os.path.abspath(path) if self.absolute_paths else get_relpath(self.exec_path, path)
+
     @abstractmethod
     def convert_file(self, path):
         pass
@@ -110,7 +113,7 @@ class Converter(metaclass=ABCMeta):
                             help="Directory with input files")
         parser.add_argument("-p", "--prefix", default=defaults.DATA_PREFIX,
                             help="Prefix to folders with data")
-        parser.add_argument("--data-extension", default=defaults.DATA_EXTENSION, metavar="EXTENSION",
+        parser.add_argument("--data_extension", default=defaults.DATA_EXTENSION, metavar="EXTENSION",
                             help="Data files extension")
         parser.add_argument("-a", "--absolute", action="store_const",
                             const=not defaults.ABSOLUTE_PATH, default=defaults.ABSOLUTE_PATH,
@@ -120,7 +123,7 @@ class Converter(metaclass=ABCMeta):
                             help="Force deletion of existing config files")
 
         eval_group = parser.add_mutually_exclusive_group()
-        eval_group.add_argument("-v", "--val", "--evaluation-percent", type=int, default=defaults.EVALUATION_PERCENT,
+        eval_group.add_argument("-v", "--val", "--evaluation_percent", type=int, default=defaults.EVALUATION_PERCENT,
                                 help="Percentage of all files to add into evaluation file")
-        eval_group.add_argument("-d", "--dedicated", "--dedicated-evaluation-path", metavar="PATH", default=None, type=str,
+        eval_group.add_argument("-d", "--dedicated", "--dedicated_evaluation_path", metavar="PATH", default=None, type=str,
                                 help="Whether to have dedicated evaluation images")

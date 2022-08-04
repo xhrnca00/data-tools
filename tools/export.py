@@ -28,7 +28,7 @@ def parse_args():
             name, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         converter.add_parser_arguments(subparser)
 
-    parser.add_argument("-S", "--save-args", action="store_const",
+    parser.add_argument("-S", "--save_args", action="store_const",
                         const=not defaults.SAVE_ARGS, default=defaults.SAVE_ARGS,
                         help="Whether to save arguments into a file")
 
