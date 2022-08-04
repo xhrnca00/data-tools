@@ -129,7 +129,7 @@ class YoloConverter(Converter):
                 f"train={self._get_data_path(self.train_path)}",
                 f"valid={self._get_data_path(self.eval_path)}",
                 f"names={self._get_data_path(self.names_path)}",
-                f"backup={self.backup_path}"
+                f"backup={self._get_data_path(self.backup_path)}"
             ]))
         # * names.txt
         with open(self.names_path, "w") as names_file:
