@@ -14,14 +14,13 @@ Simply clone this repository. Use `update.bat` in the `tools` directory to updat
 
 ## Repository structure
 
-<!-- FIXME: links to heading do not work on GitHub -->
 - The `data` directory is for your dataset.
 - The `anno_data` directory is for your annotation files.
 - **All scripts are in the `tools` directory.**
-  - `start_labelme.bat` [starts labelme](##Running-labelme) (annotation program).
+  - `start_labelme.bat` [starts labelme](#running-labelme) (annotation program).
   - `update.bat` fetches and pulls the repository (updates to the latest version).
-  - `export.py` [exports](##Export) data set annotations to another formats.
-  - `validate.py` [validates](##Validate) annotations.
+  - `export.py` [exports](#export) data set annotations to another formats.
+  - `validate.py` [validates](#validate) annotations.
   - `datatools` python module contains internal python code.
   - `_labelme` directory contains config for labelme.
 
