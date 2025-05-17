@@ -1,14 +1,16 @@
 import argparse
 import sys
+import time
 
 from pathlib import Path
-from time import time
+
+from genericpath import exists
 
 from datatools import defaults
 from datatools.converters import name_converter_map
 from datatools.logger import get_logger
 from datatools.util import base_off_cwd, get_relpath
-from genericpath import exists
+
 
 LAST_ARGS_SAVE_PATH = base_off_cwd(
     f"last_{Path(__file__).stem}_args.txt", __file__)
@@ -51,9 +53,9 @@ def main():
     # raise NotImplementedError(
     #     "Might not be fully done yet, please do not mess up the dataset")
     logger.info("converting...")
-    start = time()
+    start = time.perf_counter()
     converter.convert()
-    logger.debug(f"Took {time() - start} s")
+    logger.debug(f"Took {time.perf_counter() - start:.2f} s")
 
 
 if __name__ == "__main__":
