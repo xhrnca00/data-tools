@@ -2,17 +2,20 @@ import logging as _logging
 
 from os.path import sep as _sep
 
+
+# default logger level
+# * on the beginning to avoid circular imports (all modules import logger)
+# LOG_LEVEL = _logging.DEBUG
+LOG_LEVEL = _logging.INFO
+
 # * for printing defaults
 if __name__ == "__main__":
-    from util import base_off_cwd as _base_off_cwd
+    from util import base_off_cwd as _base_off_cwd  # type: ignore
 else:
     from .util import base_off_cwd as _base_off_cwd
 
-#! boolean flags should NOT be overriden, unless argument names are changed (--save_args flag disables saving etc.)
 
-# default logger level
-# LOG_LEVEL = _logging.DEBUG
-LOG_LEVEL = _logging.INFO
+#! boolean flags should NOT be overriden, unless argument names are changed (--save_args flag disables saving etc.)
 
 # * export.py
 # check unused parameters in annotation files
@@ -43,7 +46,7 @@ ATTR_MULTIPLE = True
 DATA_ROOT = INPUT_PATH
 IMAGE_EXTENSION = "jpg"
 USE_PREFIX = False
-NO_PREFIX = False
+NO_SET_PREFIX = False
 LEAVE_FOLDERS = False
 TRANSFER_METHOD = "copy"
 
@@ -70,7 +73,7 @@ def _print_defaults() -> None:
         f"ATTR_MULTIPLE: {ATTR_MULTIPLE}",
         f"DATA_ROOT: {DATA_ROOT}",
         f"USE_PREFIX: {USE_PREFIX}",
-        f"NO_PREFIX: {NO_PREFIX}",
+        f"NO_PREFIX: {NO_SET_PREFIX}",
         f"LEAVE_FOLDERS: {LEAVE_FOLDERS}",
         f"TRANSFER_METHOD: {TRANSFER_METHOD}",
         sep="\n"
